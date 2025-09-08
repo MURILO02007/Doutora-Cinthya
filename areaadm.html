@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doutora Cinthya - Painel de Agendamentos</title>
+    <style>
+        /* Seu CSS permanece exatamente igual */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .admin-header {
+            background-color: #2a6496;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .admin-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .admin-logo-text h1 {
+            font-size: 20px;
+        }
+        
+        .admin-user {
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-user img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        
+        .admin-nav {
+            background-color: #1d4b75;
+        }
+        
+        .admin-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .admin-nav ul li {
+            position: relative;
+        }
+        
+        .admin-nav ul li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .admin-nav ul li a:hover,
+        .admin-nav ul li a.active {
+            background-color: #2a6496;
+        }
+        
+        .admin-nav ul li a i {
+            margin-right: 8px;
+        }
+        
+        .admin-main {
+            padding: 30px 0;
+        }
+        
+        .admin-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .admin-title h2 {
+            color: #2a6496;
+            font-size: 28px;
+        }
+        
+        .admin-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 12px;
+            color: #777;
+        }
+        
+        .filter-select {
+            min-width: 200px;
+        }
+        
+        .filter-select select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: white;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #2a6496;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1d4b75;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2a6496;
+        }
+        
+        table tr:hover {
+            background-color: #f5f7fa;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-canceled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-completed {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-procedure {
+            background-color: #e8d7f8;
+            color: #4a2578;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .pagination a {
+            color: #2a6496;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+            border-radius: 5px;
+        }
+        
+        .pagination a.active {
+            background-color: #2a6496;
+            color: white;
+            border: 1px solid #2a6496;
+        }
+        
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: modalopen 0.3s;
+        }
+        
+        @keyframes modalopen {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-header h3 {
+            color: #2a6496;
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .calendar-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2a6496;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .calendar-day {
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            background-color: white;
+        }
+        
+        .calendar-day.empty {
+            background-color: #f9f9f9;
+        }
+        
+        .calendar-day-number {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .calendar-event {
+            font-size: 12px;
+            padding: 3px 6px;
+            margin-bottom: 5px;
+            background-color: #e3f2fd;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .calendar-event.confirmed {
+            background-color: #d4edda;
+        }
+        
+        .calendar-event.pending {
+            background-color: #fff3cd;
+        }
+        
+        .calendar-event.canceled {
+            background-color: #f8d7da;
+            text-decoration: line-through;
+        }
+        
+        .calendar-event.procedure {
+            background-color: #e8d7f8;
+        }
+        
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            color: #2a6496;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1d4b75;
+        }
+        
+        .stat-card .stat-change {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .stat-card .stat-change.positive {
+            color: #28a745;
+        }
+        
+        .stat-card .stat-change.negative {
+            color: #dc3545;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+            color: #6c757d;
+        }
+        
+        .empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #dee2e6;
+        }
+        
+        .empty-state p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-nav ul {
+                flex-direction: column;
+            }
+            
+            .search-filter {
+                flex-direction: column;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-day {
+                min-height: auto;
+            }
+            
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .page-content {
+            display: none;
+        }
+        
+        .page-content.active {
+            display: block;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Incluir a biblioteca do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+          // Inicializar o cliente Supabase
+    const supabaseUrl = 'https://wmpjayytlifvrcusfcuq.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtcGpheXl0bGlmdnJjdXNmY3VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYzNDA1NzgsImV4cCI6MjA3MTkxNjU3OH0.NgtJ73nKpTQ2yjV3c_NIXlq1ncSXyVhkKkoI2pSR7Pk';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    
+    // Definir uma variável global para debug
+    window.supabaseClient = supabase;
+    </script>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-container">
+            <div class="admin-header-content">
+                <div class="admin-logo">
+                    <div class="admin-logo-text">
+                        <h1>Doutora Cinthya</h1>
+                    </div>
+                </div>
+                <div class="admin-user">
+                    <img src="https://www.tunisiantopgs.com/media/default_avatar.webp" alt="Usuário">
+                    <span>Secretária </span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <nav class="admin-nav">
+        <div class="admin-container">
+            <ul>
+                <li><a href="#" class="nav-link active" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#" class="nav-link" data-page="agendamentos"><i class="fas fa-calendar-alt"></i> Agendamentos</a></li>
+                <li><a href="#" class="nav-link" data-page="pacientes"><i class="fas fa-users"></i> Pacientes</a></li>
+                <li><a href="#" class="nav-link" data-page="profissionais"><i class="fas fa-user-md"></i> Profissionais</a></li>
+                <li><a href="#" class="nav-link" data-page="procedimentos"><i class="fas fa-procedures"></i> Procedimentos</a></li>
+                <li><a href="#" class="nav-link" data-page="relatorios"><i class="fas fa-chart-bar"></i> Relatórios</a></li>
+                <li><a href="#" class="nav-link" data-page="configuracoes"><i class="fas fa-cog"></i> Configurações</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="admin-main">
+        <div class="admin-container">
+            <!-- Página Dashboard -->
+            <div id="dashboard" class="page-content active">
+                <div class="admin-title">
+                    <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                </div>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Agendamentos Hoje</h3>
+                        <div class="stat-value" id="today-appointments">0</div>
+                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="today-change">0%</span> desde ontem</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Novos Pacientes</h3>
+                        <div class="stat-value" id="new-patients">0</div>
+                        <div class="stat-change negative"><i class="fas fa-arrow-down"></i> <span id="patients-change">0%</span> este mês</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Taxa de Comparecimento</h3>
+                        <div class="stat-value" id="attendance-rate">0%</div>
+                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="attendance-change">0%</span> desde o mês passado</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Faturamento</h3>
+                        <div class="stat-value" id="revenue">R$ 0,00</div>
+                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> <span id="revenue-change">0%</span> este mês</div>
+                    </div>
+                </div>
+                
+                <div class="admin-card">
+                    <div class="admin-title">
+                        <h3>Próximos Agendamentos</h3>
+                    </div>
+                    <div class="empty-state" id="empty-dashboard">
+                        <i class="fas fa-calendar-plus"></i>
+                        <p>Nenhum agendamento encontrado</p>
+                        <button class="btn btn-primary" onclick="navigateTo('agendamentos')">
+                            <i class="fas fa-plus"></i> Fazer Primeiro Agendamento
+                        </button>
+                    </div>
+                    <div class="table-responsive" id="dashboard-appointments" style="display: none;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data/Hora</th>
+                                    <th>Paciente</th>
+                                    <th>Profissional</th>
+                                    <th>Procedimento</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboard-appointments-body">
+                                <!-- Agendamentos do dashboard serão inseridos aqui via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Página Agendamentos -->
+            <div id="agendamentos" class="page-content">
+                <div class="admin-title">
+                    <h2><i class="fas fa-calendar-alt"></i> Gerenciamento de Agendamentos</h2>
+                    <button class="btn btn-primary" onclick="openAppointmentModal()">
+                        <i class="fas fa-plus"></i> Novo Agendamento
+                    </button>
+                </div>
+                
+                <div class="admin-card">
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-appointments" placeholder="Pesquisar por paciente, profissional ou procedimento...">
+                        </div>
+                        <div class="filter-select">
+                            <select id="filter-status">
+                                <option value="">Todos os status</option>
+                                <option value="confirmed">Confirmado</option>
+                                <option value="pending">Pendente</option>
+                                <option value="canceled">Cancelado</option>
+                                <option value="completed">Concluído</option>
+                                <option value="procedure">Em Procedimento</option>
+                            </select>
+                        </div>
+                        <div class="filter-select">
+                            <select id="filter-professional">
+                                <option value="">Todos os profissionais</option>
+                                <!-- Profissionais serão carregados aqui -->
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="filterAppointments()">
+                            <i class="fas fa-filter"></i> Filtrar
+                        </button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data/Hora</th>
+                                    <th>Paciente</th>
+                                    <th>Profissional</th>
+                                    <th>Procedimento</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointments-table-body">
+                                <!-- Agendamentos serão inseridos aqui via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="empty-appointments" class="empty-state">
+                        <i class="fas fa-calendar-plus"></i>
+                        <p>Nenhum agendamento encontrado</p>
+                        <button class="btn btn-primary" onclick="openAppointmentModal()">
+                            <i class="fas fa-plus"></i> Fazer Primeiro Agendamento
+                        </button>
+                    </div>
+                    
+                    <div class="pagination" id="appointments-pagination">
+                        <a href="#" onclick="changeAppointmentsPage('prev')">&laquo;</a>
+                        <a href="#" class="active">1</a>
+                        <a href="#" onclick="changeAppointmentsPage('next')">&raquo;</a>
+                    </div>
+                </div>
+                
+                <div class="admin-card">
+                    <div class="calendar-header">
+                        <div class="calendar-title" id="calendar-month">Agosto 2023</div>
+                        <div class="calendar-nav">
+                            <button class="btn btn-sm btn-primary" onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                            <button class="btn btn-sm btn-primary" onclick="goToToday()">Hoje</button>
+                            <button class="btn btn-sm btn-primary" onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-grid" id="calendar-grid">
+                        <!-- Calendário será gerado via JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Página Pacientes -->
+            <div id="pacientes" class="page-content">
+                <div class="admin-title">
+                    <h2><i class="fas fa-users"></i> Gerenciamento de Pacientes</h2>
+                    <button class="btn btn-primary" onclick="openPatientModal()">
+                        <i class="fas fa-plus"></i> Novo Paciente
+                    </button>
+                </div>
+                
+                <div class="admin-card">
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-patients" placeholder="Pesquisar por nome, telefone ou email...">
+                        </div>
+                        <button class="btn btn-primary" onclick="filterPatients()">
+                            <i class="fas fa-filter"></i> Filtrar
+                        </button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Telefone</th>
+                                    <th>Email</th>
+                                    <th>Data de Nascimento</th>
+                                    <th>Última Consulta</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patients-table-body">
+                                <!-- Pacientes serão inseridos aqui via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="empty-patients" class="empty-state">
+                        <i class="fas fa-user-plus"></i>
+                        <p>Nenhum paciente cadastrado</p>
+                        <button class="btn btn-primary" onclick="openPatientModal()">
+                            <i class="fas fa-plus"></i> Cadastrar Primeiro Paciente
+                        </button>
+                    </div>
+                    
+                    <div class="pagination" id="patients-pagination">
+                        <a href="#" onclick="changePatientsPage('prev')">&laquo;</a>
+                        <a href="#" class="active">1</a>
+                        <a href="#" onclick="changePatientsPage('next')">&raquo;</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Página Profissionais -->
+            <div id="profissionais" class="page-content">
+                <div class="admin-title">
+                    <h2><i class="fas fa-user-md"></i> Gerenciamento de Profissionais</h2>
+                    <button class="btn btn-primary" onclick="openProfessionalModal()">
+                        <i class="fas fa-plus"></i> Novo Profissional
+                    </button>
+                </div>
+                
+                <div class="admin-card">
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-professionals" placeholder="Pesquisar por nome, especialidade...">
+                        </div>
+                        <button class="btn btn-primary" onclick="filterProfessionals()">
+                            <i class="fas fa-filter"></i> Filtrar
+                        </button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Especialidade</th>
+                                    <th>Telefone</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="professionals-table-body">
+                                <!-- Profissionais serão inseridos aqui via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="empty-professionals" class="empty-state">
+                        <i class="fas fa-user-md"></i>
+                        <p>Nenhum profissional cadastrado</p>
+                        <button class="btn btn-primary" onclick="openProfessionalModal()">
+                            <i class="fas fa-plus"></i> Cadastrar Primeiro Profissional
+                        </button>
+                    </div>
+                    
+                    <div class="pagination" id="professionals-pagination">
+                        <a href="#" onclick="changeProfessionalsPage('prev')">&laquo;</a>
+                        <a href="#" class="active">1</a>
+                        <a href="#" onclick="changeProfessionalsPage('next')">&raquo;</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Página Procedimentos -->
+            <div id="procedimentos" class="page-content">
+                <div class="admin-title">
+                    <h2><i class="fas fa-procedures"></i> Gerenciamento de Procedimentos</h2>
+                </div>
+                
+                <div class="admin-card">
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-procedures" placeholder="Pesquisar por paciente ou procedimento...">
+                        </div>
+                        <div class="filter-select">
+                            <select id="filter-procedure-professional">
+                                <option value="">Todos os profissionais</option>
+                                <!-- Profissionais serão carregados aqui -->
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="filterProcedures()">
+                            <i class="fas fa-filter"></i> Filtrar
+                        </button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Paciente</th>
+                                    <th>Procedimento</th>
+                                    <th>Profissional</th>
+                                    <th>Data de Início</th>
+                                    <th>Sessões</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="procedures-table-body">
+                                <!-- Procedimentos serão inseridos aqui via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="empty-procedures" class="empty-state">
+                        <i class="fas fa-procedures"></i>
+                        <p>Nenhum procedimento em andamento</p>
+                    </div>
+                    
+                    <div class="pagination" id="procedures-pagination">
+                        <a href="#" onclick="changeProceduresPage('prev')">&laquo;</a>
+                        <a href="#" class="active">1</a>
+                        <a href="#" onclick="changeProceduresPage('next')">&raquo;</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Página Relatórios -->
+            <div id="relatorios" class="page-content">
+                <div class="admin-title">
+                    <h2><i class="fas fa-chart-bar"></i> Relatórios e Estatísticas</h2>
+                </div>
+                <div class="admin-card">
+                    <div class="empty-state">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Página de Relatórios - Em desenvolvimento</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Página Configurações -->
+            <div id="configuracoes" class="page-content">
+                <div class="admin-title">
+                    <h2><i class="fas fa-cog"></i> Configurações do Sistema</h2>
+                </div>
+                <div class="admin-card">
+                    <div class="empty-state">
+                        <i class="fas fa-cog"></i>
+                        <p>Página de Configurações - Em desenvolvimento</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Modal de Novo Agendamento -->
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="appointmentModalTitle">Novo Agendamento</h3>
+                <span class="close" onclick="closeAppointmentModal()">&times;</span>
+            </div>
+            <form id="appointmentForm">
+                <input type="hidden" id="appointment-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="appointment-date">Data</label>
+                        <input type="date" id="appointment-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-time">Hora</label>
+                        <input type="time" id="appointment-time" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointment-patient">Paciente</label>
+                    <select id="appointment-patient" required>
+                        <option value="">Selecione um paciente</option>
+                        <!-- Pacientes serão carregados aqui -->
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="appointment-professional">Profissional</label>
+                        <select id="appointment-professional" required>
+                            <option value="">Selecione um profissional</option>
+                            <!-- Profissionais serão carregados aqui -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-procedure">Procedimento</label>
+                        <select id="appointment-procedure" required>
+                            <option value="">Selecione um procedimento</option>
+                            <option value="Consulta de rotina">Consulta de rotina</option>
+                            <option value="Clareamento dental">Clareamento dental</option>
+                            <option value="Implante dentário">Implante dentário</option>
+                            <option value="Ortodontia">Ortodontia</option>
+                            <option value="Limpeza profissional">Limpeza profissional</option>
+                            <option value="Extração">Extração</option>
+                            <option value="Restauração">Restauração</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointment-notes">Observações</label>
+                    <textarea id="appointment-notes" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointment-status">Status</label>
+                    <select id="appointment-status" required>
+                        <option value="pending">Pendente</option>
+                        <option value="confirmed" selected>Confirmado</option>
+                        <option value="canceled">Cancelado</option>
+                        <option value="completed">Concluído</option>
+                        <option value="procedure">Em Procedimento</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" onclick="closeAppointmentModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-success" id="save-appointment-btn">Salvar Agendamento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal de Novo Paciente -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="patientModalTitle">Novo Paciente</h3>
+                <span class="close" onclick="closePatientModal()">&times;</span>
+            </div>
+            <form id="patientForm">
+                <input type="hidden" id="patient-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patient-name">Nome Completo</label>
+                        <input type="text" id="patient-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-birthdate">Data de Nascimento</label>
+                        <input type="date" id="patient-birthdate" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patient-phone">Telefone</label>
+                        <input type="tel" id="patient-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-email">Email</label>
+                        <input type="email" id="patient-email">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="patient-address">Endereço</label>
+                    <textarea id="patient-address" rows="2"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" onclick="closePatientModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-success" id="save-patient-btn">Salvar Paciente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal de Novo Profissional -->
+    <div id="professionalModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="professionalModalTitle">Novo Profissional</h3>
+                <span class="close" onclick="closeProfessionalModal()">&times;</span>
+            </div>
+            <form id="professionalForm">
+                <input type="hidden" id="professional-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="professional-name">Nome Completo</label>
+                        <input type="text" id="professional-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="professional-specialty">Especialidade</label>
+                        <input type="text" id="professional-specialty" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="professional-phone">Telefone</label>
+                        <input type="tel" id="professional-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="professional-email">Email</label>
+                        <input type="email" id="professional-email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="professional-status">Status</label>
+                    <select id="professional-status" required>
+                        <option value="active" selected>Ativo</option>
+                        <option value="inactive">Inativo</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" onclick="closeProfessionalModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-success" id="save-professional-btn">Salvar Profissional</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal de Confirmação -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="confirmationModalTitle">Confirmar Exclusão</h3>
+                <span class="close" onclick="closeConfirmationModal()">&times;</span>
+            </div>
+            <div class="form-group">
+                <p id="confirmationMessage">Tem certeza que deseja excluir este item?</p>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-danger" onclick="closeConfirmationModal()">Cancelar</button>
+                <button type="button" class="btn btn-success" id="confirmButton">Confirmar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        
+        // Variáveis globais
+        let appointments = [];
+        let patients = [];
+        let professionals = [];
+        let procedures = [];
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let currentEditingId = null;
+        let deleteCallback = null;
+        
+        // Variáveis de paginação
+        let currentAppointmentsPage = 1;
+        let currentPatientsPage = 1;
+        let currentProfessionalsPage = 1;
+        let currentProceduresPage = 1;
+        const itemsPerPage = 10;
+        
+        // Funções para navegação entre páginas
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                navigateTo(pageId);
+            });
+        });
+        
+        function navigateTo(pageId) {
+            // Desativa todos os links do menu
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Ativa o link clicado
+            document.querySelector(`.nav-link[data-page="${pageId}"]`).classList.add('active');
+            
+            // Esconde todos os conteúdos de página
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostra a página selecionada
+            document.getElementById(pageId).classList.add('active');
+            
+            // Atualiza as páginas conforme necessário
+            if (pageId === 'dashboard') {
+                loadDashboardData();
+            } else if (pageId === 'agendamentos') {
+                loadAppointments();
+                loadProfessionalsDropdown();
+                renderCalendar();
+            } else if (pageId === 'pacientes') {
+                loadPatients();
+            } else if (pageId === 'profissionais') {
+                loadProfessionals();
+            } else if (pageId === 'procedimentos') {
+                loadProcedures();
+                loadProfessionalsDropdown('filter-procedure-professional');
+            }
+        }
+        
+        // Funções para carregar dados do Supabase
+        async function loadDashboardData() {
+            try {
+                // Carregar estatísticas
+                const today = new Date().toISOString().split('T')[0];
+                
+                // Agendamentos de hoje
+                const { data: todayAppointments, error: todayError } = await supabase
+                    .from('appointments')
+                    .select('*')
+                    .eq('date', today);
+                
+                if (!todayError) {
+                    document.getElementById('today-appointments').textContent = todayAppointments.length;
+                }
+                
+                // Novos pacientes este mês
+                const firstDayOfMonth = new Date(currentYear, currentMonth, 1).toISOString().split('T')[0];
+                const { data: newPatients, error: patientsError } = await supabase
+                    .from('patients')
+                    .select('*')
+                    .gte('created_at', firstDayOfMonth);
+                
+                if (!patientsError) {
+                    document.getElementById('new-patients').textContent = newPatients.length;
+                }
+                
+                // Próximos agendamentos
+                const { data: upcomingAppointments, error: appointmentsError } = await supabase
+                    .from('appointments')
+                    .select(`
+                        *,
+                        patients (name),
+                        professionals (name)
+                    `)
+                    .gte('date', today)
+                    .order('date', { ascending: true })
+                    .order('time', { ascending: true })
+                    .limit(5);
+                
+                if (!appointmentsError && upcomingAppointments && upcomingAppointments.length > 0) {
+                    document.getElementById('empty-dashboard').style.display = 'none';
+                    document.getElementById('dashboard-appointments').style.display = 'block';
+                    
+                    const tbody = document.getElementById('dashboard-appointments-body');
+                    tbody.innerHTML = '';
+                    
+                    upcomingAppointments.forEach(appointment => {
+                        const row = document.createElement('tr');
+                        
+                        // Formatar a data para exibição (DD/MM/AAAA)
+                        const dateParts = appointment.date.split('-');
+                        const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                        
+                        // Determinar a classe de status
+                        let statusClass = 'status-pending';
+                        let statusText = 'Pendente';
+                        
+                        if (appointment.status === 'confirmed') {
+                            statusClass = 'status-confirmed';
+                            statusText = 'Confirmado';
+                        } else if (appointment.status === 'canceled') {
+                            statusClass = 'status-canceled';
+                            statusText = 'Cancelado';
+                        } else if (appointment.status === 'completed') {
+                            statusClass = 'status-completed';
+                            statusText = 'Concluído';
+                        } else if (appointment.status === 'procedure') {
+                            statusClass = 'status-procedure';
+                            statusText = 'Em Procedimento';
+                        }
+                        
+                        row.innerHTML = `
+                            <td>${formattedDate} - ${appointment.time}</td>
+                            <td>${appointment.patients.name}</td>
+                            <td>${appointment.professionals.name}</td>
+                            <td>${appointment.procedure}</td>
+                            <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        `;
+                        
+                        tbody.appendChild(row);
+                    });
+                } else {
+                    document.getElementById('empty-dashboard').style.display = 'block';
+                    document.getElementById('dashboard-appointments').style.display = 'none';
+                }
+                
+            } catch (error) {
+                console.error('Erro ao carregar dados do dashboard:', error);
+            }
+        }
+        
+        async function loadAppointments() {
+            try {
+                const from = (currentAppointmentsPage - 1) * itemsPerPage;
+                const to = from + itemsPerPage - 1;
+                
+                const { data, error } = await supabase
+                    .from('appointments')
+                    .select(`
+                        *,
+                        patients (name, phone),
+                        professionals (name)
+                    `)
+                    .order('date', { ascending: false })
+                    .order('time', { ascending: false })
+                    .range(from, to);
+                
+                if (error) {
+                    console.error('Erro ao carregar agendamentos:', error);
+                    return;
+                }
+                
+                appointments = data || [];
+                renderAppointmentsTable();
+                
+            } catch (error) {
+                console.error('Erro ao carregar agendamentos:', error);
+            }
+        }
+        
+        async function loadPatients() {
+            try {
+                const from = (currentPatientsPage - 1) * itemsPerPage;
+                const to = from + itemsPerPage - 1;
+                
+                const { data, error } = await supabase
+                    .from('patients')
+                    .select('*')
+                    .order('name', { ascending: true })
+                    .range(from, to);
+                
+                if (error) {
+                    console.error('Erro ao carregar pacientes:', error);
+                    return;
+                }
+                
+                patients = data || [];
+                renderPatientsTable();
+                
+            } catch (error) {
+                console.error('Erro ao carregar pacientes:', error);
+            }
+        }
+        
+        async function loadProfessionals() {
+            try {
+                const from = (currentProfessionalsPage - 1) * itemsPerPage;
+                const to = from + itemsPerPage - 1;
+                
+                const { data, error } = await supabase
+                    .from('professionals')
+                    .select('*')
+                    .order('name', { ascending: true })
+                    .range(from, to);
+                
+                if (error) {
+                    console.error('Erro ao carregar profissionais:', error);
+                    return;
+                }
+                
+                professionals = data || [];
+                renderProfessionalsTable();
+                
+            } catch (error) {
+                console.error('Erro ao carregar profissionais:', error);
+            }
+        }
+        
+        async function loadProcedures() {
+            try {
+                const from = (currentProceduresPage - 1) * itemsPerPage;
+                const to = from + itemsPerPage - 1;
+                
+                const { data, error } = await supabase
+                    .from('appointments')
+                    .select(`
+                        *,
+                        patients (name),
+                        professionals (name)
+                    `)
+                    .eq('status', 'procedure')
+                    .order('date', { ascending: false })
+                    .range(from, to);
+                
+                if (error) {
+                    console.error('Erro ao carregar procedimentos:', error);
+                    return;
+                }
+                
+                procedures = data || [];
+                renderProceduresTable();
+                
+            } catch (error) {
+                console.error('Erro ao carregar procedimentos:', error);
+            }
+        }
+        
+        async function loadProfessionalsDropdown(dropdownId = 'appointment-professional') {
+            try {
+                const { data, error } = await supabase
+                    .from('professionals')
+                    .select('id, name')
+                    .eq('status', 'active')
+                    .order('name', { ascending: true });
+                
+                if (error) {
+                    console.error('Erro ao carregar profissionais:', error);
+                    return;
+                }
+                
+                const dropdown = document.getElementById(dropdownId);
+                dropdown.innerHTML = '<option value="">Selecione um profissional</option>';
+                
+                data.forEach(professional => {
+                    const option = document.createElement('option');
+                    option.value = professional.id;
+                    option.textContent = professional.name;
+                    dropdown.appendChild(option);
+                });
+                
+            } catch (error) {
+                console.error('Erro ao carregar profissionais:', error);
+            }
+        }
+        
+        async function loadPatientsDropdown() {
+            try {
+                const { data, error } = await supabase
+                    .from('patients')
+                    .select('id, name')
+                    .order('name', { ascending: true });
+                
+                if (error) {
+                    console.error('Erro ao carregar pacientes:', error);
+                    return;
+                }
+                
+                const dropdown = document.getElementById('appointment-patient');
+                dropdown.innerHTML = '<option value="">Selecione um paciente</option>';
+                
+                data.forEach(patient => {
+                    const option = document.createElement('option');
+                    option.value = patient.id;
+                    option.textContent = patient.name;
+                    dropdown.appendChild(option);
+                });
+                
+            } catch (error) {
+                console.error('Erro ao carregar pacientes:', error);
+            }
+        }
+        
+        // Funções para o modal de agendamento
+        function openAppointmentModal(id = null) {
+            currentEditingId = id;
+            const modal = document.getElementById('appointmentModal');
+            const title = document.getElementById('appointmentModalTitle');
+            
+            if (id) {
+                title.textContent = 'Editar Agendamento';
+                // Preencher o formulário com os dados do agendamento
+                const appointment = appointments.find(a => a.id == id);
+                if (appointment) {
+                    document.getElementById('appointment-id').value = appointment.id;
+                    document.getElementById('appointment-date').value = appointment.date;
+                    document.getElementById('appointment-time').value = appointment.time;
+                    document.getElementById('appointment-patient').value = appointment.patient_id;
+                    document.getElementById('appointment-professional').value = appointment.professional_id;
+                    document.getElementById('appointment-procedure').value = appointment.procedure;
+                    document.getElementById('appointment-notes').value = appointment.notes || '';
+                    document.getElementById('appointment-status').value = appointment.status;
+                }
+            } else {
+                title.textContent = 'Novo Agendamento';
+                document.getElementById('appointmentForm').reset();
+            }
+            
+            loadPatientsDropdown();
+            loadProfessionalsDropdown();
+            modal.style.display = 'block';
+        }
+        
+        function closeAppointmentModal() {
+            document.getElementById('appointmentModal').style.display = 'none';
+            document.getElementById('appointmentForm').reset();
+            currentEditingId = null;
+        }
+        
+        // Funções para o modal de paciente
+        function openPatientModal(id = null) {
+            currentEditingId = id;
+            const modal = document.getElementById('patientModal');
+            const title = document.getElementById('patientModalTitle');
+            
+            if (id) {
+                title.textContent = 'Editar Paciente';
+                // Preencher o formulário com os dados do paciente
+                const patient = patients.find(p => p.id == id);
+                if (patient) {
+                    document.getElementById('patient-id').value = patient.id;
+                    document.getElementById('patient-name').value = patient.name;
+                    document.getElementById('patient-birthdate').value = patient.birth_date;
+                    document.getElementById('patient-phone').value = patient.phone;
+                    document.getElementById('patient-email').value = patient.email || '';
+                    document.getElementById('patient-address').value = patient.address || '';
+                }
+            } else {
+                title.textContent = 'Novo Paciente';
+                document.getElementById('patientForm').reset();
+            }
+            
+            modal.style.display = 'block';
+        }
+        
+        function closePatientModal() {
+            document.getElementById('patientModal').style.display = 'none';
+            document.getElementById('patientForm').reset();
+            currentEditingId = null;
+        }
+        
+        // Funções para o modal de profissional
+        function openProfessionalModal(id = null) {
+            currentEditingId = id;
+            const modal = document.getElementById('professionalModal');
+            const title = document.getElementById('professionalModalTitle');
+            
+            if (id) {
+                title.textContent = 'Editar Profissional';
+                // Preencher o formulário com os dados do profissional
+                const professional = professionals.find(p => p.id == id);
+                if (professional) {
+                    document.getElementById('professional-id').value = professional.id;
+                    document.getElementById('professional-name').value = professional.name;
+                    document.getElementById('professional-specialty').value = professional.specialty;
+                    document.getElementById('professional-phone').value = professional.phone;
+                    document.getElementById('professional-email').value = professional.email || '';
+                    document.getElementById('professional-status').value = professional.status;
+                }
+            } else {
+                title.textContent = 'Novo Profissional';
+                document.getElementById('professionalForm').reset();
+            }
+            
+            modal.style.display = 'block';
+        }
+        
+        function closeProfessionalModal() {
+            document.getElementById('professionalModal').style.display = 'none';
+            document.getElementById('professionalForm').reset();
+            currentEditingId = null;
+        }
+        
+        // Funções para o modal de confirmação
+        function openConfirmationModal(message, callback) {
+            document.getElementById('confirmationMessage').textContent = message;
+            deleteCallback = callback;
+            document.getElementById('confirmationModal').style.display = 'block';
+        }
+        
+        function closeConfirmationModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+            deleteCallback = null;
+        }
+        
+        document.getElementById('confirmButton').addEventListener('click', function() {
+            if (deleteCallback) {
+                deleteCallback();
+            }
+            closeConfirmationModal();
+        });
+        
+        // Fechar os modais ao clicar fora deles
+        window.onclick = function(event) {
+            const appointmentModal = document.getElementById('appointmentModal');
+            const patientModal = document.getElementById('patientModal');
+            const professionalModal = document.getElementById('professionalModal');
+            const confirmationModal = document.getElementById('confirmationModal');
+            
+            if (event.target == appointmentModal) {
+                closeAppointmentModal();
+            } else if (event.target == patientModal) {
+                closePatientModal();
+            } else if (event.target == professionalModal) {
+                closeProfessionalModal();
+            } else if (event.target == confirmationModal) {
+                closeConfirmationModal();
+            }
+        }
+        
+        // Manipular o formulário de agendamento
+        document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const saveButton = document.getElementById('save-appointment-btn');
+            const originalText = saveButton.innerHTML;
+            saveButton.innerHTML = '<div class="loading"></div>';
+            saveButton.disabled = true;
+            
+            const appointmentData = {
+                date: document.getElementById('appointment-date').value,
+                time: document.getElementById('appointment-time').value,
+                patient_id: document.getElementById('appointment-patient').value,
+                professional_id: document.getElementById('appointment-professional').value,
+                procedure: document.getElementById('appointment-procedure').value,
+                notes: document.getElementById('appointment-notes').value,
+                status: document.getElementById('appointment-status').value
+            };
+            
+            try {
+                if (currentEditingId) {
+                    // Editar agendamento existente
+                    const { error } = await supabase
+                        .from('appointments')
+                        .update(appointmentData)
+                        .eq('id', currentEditingId);
+                    
+                    if (error) {
+                        throw error;
+                    }
+                    
+                    alert('Agendamento atualizado com sucesso!');
+                } else {
+                    // Criar novo agendamento
+                    const { error } = await supabase
+                        .from('appointments')
+                        .insert([appointmentData]);
+                    
+                    if (error) {
+                        throw error;
+                    }
+                    
+                    alert('Agendamento criado com sucesso!');
+                }
+                
+                closeAppointmentModal();
+                loadAppointments();
+                renderCalendar();
+                
+            } catch (error) {
+                console.error('Erro ao salvar agendamento:', error);
+                alert('Erro ao salvar agendamento: ' + error.message);
+            } finally {
+                saveButton.innerHTML = originalText;
+                saveButton.disabled = false;
+            }
+        });
+        
+        // Manipular o formulário de paciente
+        document.getElementById('patientForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const saveButton = document.getElementById('save-patient-btn');
+            const originalText = saveButton.innerHTML;
+            saveButton.innerHTML = '<div class="loading"></div>';
+            saveButton.disabled = true;
+            
+            const patientData = {
+                name: document.getElementById('patient-name').value,
+                birth_date: document.getElementById('patient-birthdate').value,
+                phone: document.getElementById('patient-phone').value,
+                email: document.getElementById('patient-email').value,
+                address: document.getElementById('patient-address').value
+            };
+            
+            try {
+                if (currentEditingId) {
+                    // Editar paciente existente
+                    const { error } = await supabase
+                        .from('patients')
+                        .update(patientData)
+                        .eq('id', currentEditingId);
+                    
+                    if (error) {
+                        throw error;
+                    }
+                    
+                    alert('Paciente atualizado com sucesso!');
+                } else {
+                    // Criar novo paciente
+                    const { error } = await supabase
+                        .from('patients')
+                        .insert([patientData]);
+                    
+                    if (error) {
+                        throw error;
+                    }
+                    
+                    alert('Paciente criado com sucesso!');
+                }
+                
+                closePatientModal();
+                loadPatients();
+                
+            } catch (error) {
+                console.error('Erro ao salvar paciente:', error);
+                alert('Erro ao salvar paciente: ' + error.message);
+            } finally {
+                saveButton.innerHTML = originalText;
+                saveButton.disabled = false;
+            }
+        });
+        
+        // Manipular o formulário de profissional
+        document.getElementById('professionalForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const saveButton = document.getElementById('save-professional-btn');
+            const originalText = saveButton.innerHTML;
+            saveButton.innerHTML = '<div class="loading"></div>';
+            saveButton.disabled = true;
+            
+            const professionalData = {
+                name: document.getElementById('professional-name').value,
+                specialty: document.getElementById('professional-specialty').value,
+                phone: document.getElementById('professional-phone').value,
+                email: document.getElementById('professional-email').value,
+                status: document.getElementById('professional-status').value
+            };
+            
+            try {
+                if (currentEditingId) {
+                    // Editar profissional existente
+                    const { error } = await supabase
+                        .from('professionals')
+                        .update(professionalData)
+                        .eq('id', currentEditingId);
+                    
+                    if (error) {
+                        throw error;
+                    }
+                    
+                    alert('Profissional atualizado com sucesso!');
+                } else {
+                    // Criar novo profissional
+                    const { error } = await supabase
+                        .from('professionals')
+                        .insert([professionalData]);
+                    
+                    if (error) {
+                        throw error;
+                    }
+                    
+                    alert('Profissional criado com sucesso!');
+                }
+                
+                closeProfessionalModal();
+                loadProfessionals();
+                loadProfessionalsDropdown();
+                loadProfessionalsDropdown('filter-procedure-professional');
+                
+            } catch (error) {
+                console.error('Erro ao salvar profissional:', error);
+                alert('Erro ao salvar profissional: ' + error.message);
+            } finally {
+                saveButton.innerHTML = originalText;
+                saveButton.disabled = false;
+            }
+        });
+        
+        // Função para editar status para procedimento
+        async function moveToProcedures(id) {
+            try {
+                const { error } = await supabase
+                    .from('appointments')
+                    .update({ status: 'procedure' })
+                    .eq('id', id);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                alert('Agendamento movido para procedimentos!');
+                loadAppointments();
+                loadProcedures();
+                
+            } catch (error) {
+                console.error('Erro ao mover para procedimentos:', error);
+                alert('Erro ao mover para procedimentos: ' + error.message);
+            }
+        }
+        
+        // Função para excluir agendamento
+        async function deleteAppointment(id) {
+            openConfirmationModal('Tem certeza que deseja excluir este agendamento?', async function() {
+                try {
+                    const { error } = await supabase
+                        .from('appointments')
+                        .delete()
+                        .eq('id', id);
+                    
+                    if (error) {
+                        throw error;
+                    }
+                    
+                    alert('Agendamento excluído com sucesso!');
+                    loadAppointments();
+                    renderCalendar();
+                    loadProcedures();
+                    
+                } catch (error) {
+                    console.error('Erro ao excluir agendamento:', error);
+                    alert('Erro ao excluir agendamento: ' + error.message);
+                }
+            });
+        }
+        
+        // Função para excluir paciente
+        async function deletePatient(id) {
+            // Verificar se o paciente tem agendamentos
+            try {
+                const { data, error } = await supabase
+                    .from('appointments')
+                    .select('id')
+                    .eq('patient_id', id)
+                    .limit(1);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                if (data && data.length > 0) {
+                    alert('Não é possível excluir este paciente pois existem agendamentos vinculados a ele.');
+                    return;
+                }
+                
+                openConfirmationModal('Tem certeza que deseja excluir este paciente?', async function() {
+                    try {
+                        const { error } = await supabase
+                            .from('patients')
+                            .delete()
+                            .eq('id', id);
+                        
+                        if (error) {
+                            throw error;
+                        }
+                        
+                        alert('Paciente excluído com sucesso!');
+                        loadPatients();
+                        
+                    } catch (error) {
+                        console.error('Erro ao excluir paciente:', error);
+                        alert('Erro ao excluir paciente: ' + error.message);
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Erro ao verificar agendamentos do paciente:', error);
+                alert('Erro ao verificar agendamentos do paciente: ' + error.message);
+            }
+        }
+        
+        // Função para excluir profissional
+        async function deleteProfessional(id) {
+            // Verificar se o profissional tem agendamentos
+            try {
+                const { data, error } = await supabase
+                    .from('appointments')
+                    .select('id')
+                    .eq('professional_id', id)
+                    .limit(1);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                if (data && data.length > 0) {
+                    alert('Não é possível excluir este profissional pois existem agendamentos vinculados a ele.');
+                    return;
+                }
+                
+                openConfirmationModal('Tem certeza que deseja excluir este profissional?', async function() {
+                    try {
+                        const { error } = await supabase
+                            .from('professionals')
+                            .delete()
+                            .eq('id', id);
+                        
+                        if (error) {
+                            throw error;
+                        }
+                        
+                        alert('Profissional excluído com sucesso!');
+                        loadProfessionals();
+                        loadProfessionalsDropdown();
+                        loadProfessionalsDropdown('filter-procedure-professional');
+                        
+                    } catch (error) {
+                        console.error('Erro ao excluir profissional:', error);
+                        alert('Erro ao excluir profissional: ' + error.message);
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Erro ao verificar agendamentos do profissional:', error);
+                alert('Erro ao verificar agendamentos do profissional: ' + error.message);
+            }
+        }
+        
+        // Renderizar a tabela de agendamentos
+        function renderAppointmentsTable() {
+            const tbody = document.getElementById('appointments-table-body');
+            const emptyState = document.getElementById('empty-appointments');
+            
+            if (appointments.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            tbody.innerHTML = '';
+            
+            appointments.forEach(appointment => {
+                const row = document.createElement('tr');
+                
+                // Formatar a data para exibição (DD/MM/AAAA)
+                const dateParts = appointment.date.split('-');
+                const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                
+                // Determinar a classe de status
+                let statusClass = 'status-pending';
+                let statusText = 'Pendente';
+                
+                if (appointment.status === 'confirmed') {
+                    statusClass = 'status-confirmed';
+                    statusText = 'Confirmado';
+                } else if (appointment.status === 'canceled') {
+                    statusClass = 'status-canceled';
+                    statusText = 'Cancelado';
+                } else if (appointment.status === 'completed') {
+                    statusClass = 'status-completed';
+                    statusText = 'Concluído';
+                } else if (appointment.status === 'procedure') {
+                    statusClass = 'status-procedure';
+                    statusText = 'Em Procedimento';
+                }
+                
+                row.innerHTML = `
+                    <td>${formattedDate} - ${appointment.time}</td>
+                    <td>${appointment.patients.name}</td>
+                    <td>${appointment.professionals.name}</td>
+                    <td>${appointment.procedure}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td class="action-buttons">
+                        ${appointment.status !== 'procedure' ? 
+                            `<button class="btn btn-sm btn-warning" onclick="moveToProcedures(${appointment.id})" title="Mover para Procedimentos">
+                                <i class="fas fa-procedures"></i>
+                            </button>` : ''
+                        }
+                        <button class="btn btn-sm btn-primary" onclick="openAppointmentModal(${appointment.id})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteAppointment(${appointment.id})" title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Renderizar a tabela de pacientes
+        function renderPatientsTable() {
+            const tbody = document.getElementById('patients-table-body');
+            const emptyState = document.getElementById('empty-patients');
+            
+            if (patients.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            tbody.innerHTML = '';
+            
+            patients.forEach(patient => {
+                const row = document.createElement('tr');
+                
+                // Formatar a data de nascimento (DD/MM/AAAA)
+                let formattedBirthDate = 'Não informada';
+                if (patient.birth_date) {
+                    const dateParts = patient.birth_date.split('-');
+                    formattedBirthDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                }
+                
+                // Encontrar a última consulta do paciente
+                const patientAppointments = appointments.filter(a => a.patient_id == patient.id && a.status !== 'canceled');
+                let lastAppointment = 'Nenhuma';
+                
+                if (patientAppointments.length > 0) {
+                    // Ordenar por data mais recente
+                    patientAppointments.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    const dateParts = patientAppointments[0].date.split('-');
+                    lastAppointment = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                }
+                
+                row.innerHTML = `
+                    <td>${patient.name}</td>
+                    <td>${patient.phone}</td>
+                    <td>${patient.email || 'Não informado'}</td>
+                    <td>${formattedBirthDate}</td>
+                    <td>${lastAppointment}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-primary" onclick="openPatientModal(${patient.id})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deletePatient(${patient.id})" title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Renderizar a tabela de profissionais
+        function renderProfessionalsTable() {
+            const tbody = document.getElementById('professionals-table-body');
+            const emptyState = document.getElementById('empty-professionals');
+            
+            if (professionals.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            tbody.innerHTML = '';
+            
+            professionals.forEach(professional => {
+                const row = document.createElement('tr');
+                
+                // Determinar a classe de status
+                let statusClass = professional.status === 'active' ? 'status-confirmed' : 'status-canceled';
+                let statusText = professional.status === 'active' ? 'Ativo' : 'Inativo';
+                
+                row.innerHTML = `
+                    <td>${professional.name}</td>
+                    <td>${professional.specialty}</td>
+                    <td>${professional.phone}</td>
+                    <td>${professional.email || 'Não informado'}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-primary" onclick="openProfessionalModal(${professional.id})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteProfessional(${professional.id})" title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Renderizar a tabela de procedimentos
+        function renderProceduresTable() {
+            const tbody = document.getElementById('procedures-table-body');
+            const emptyState = document.getElementById('empty-procedures');
+            
+            if (procedures.length === 0) {
+                tbody.innerHTML = '';
+                if (emptyState) emptyState.style.display = 'block';
+                return;
+            }
+            
+            if (emptyState) emptyState.style.display = 'none';
+            tbody.innerHTML = '';
+            
+            procedures.forEach(procedure => {
+                const row = document.createElement('tr');
+                
+                // Formatar a data de início (DD/MM/AAAA)
+                const dateParts = procedure.date.split('-');
+                const formattedStartDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                
+                row.innerHTML = `
+                    <td>${procedure.patients.name}</td>
+                    <td>${procedure.procedure}</td>
+                    <td>${procedure.professionals.name}</td>
+                    <td>${formattedStartDate}</td>
+                    <td>1</td>
+                    <td><span class="status-badge status-procedure">Em andamento</span></td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-success" title="Adicionar Sessão">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button class="btn btn-sm btn-primary" onclick="openAppointmentModal(${procedure.id})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Funções para o calendário
+        function renderCalendar() {
+            const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                               "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            
+            // Atualizar o título do calendário
+            document.getElementById('calendar-month').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            
+            // Obter o primeiro dia do mês e o número de dias no mês
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            
+            // Gerar os cabeçalhos dos dias da semana
+            const dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+            let calendarHTML = '';
+            
+            dayNames.forEach(day => {
+                calendarHTML += `<div class="calendar-day-header">${day}</div>`;
+            });
+            
+            // Adicionar células vazias para os dias antes do primeiro dia do mês
+            for (let i = 0; i < firstDay; i++) {
+                calendarHTML += `<div class="calendar-day empty"></div>`;
+            }
+            
+            // Adicionar os dias do mês
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayAppointments = appointments.filter(a => a.date === dayDate);
+                
+                calendarHTML += `<div class="calendar-day">`;
+                calendarHTML += `<div class="calendar-day-number">${day}</div>`;
+                
+                // Adicionar eventos para este dia
+                dayAppointments.forEach(appointment => {
+                    let statusClass = '';
+                    if (appointment.status === 'confirmed') statusClass = 'confirmed';
+                    else if (appointment.status === 'pending') statusClass = 'pending';
+                    else if (appointment.status === 'canceled') statusClass = 'canceled';
+                    else if (appointment.status === 'procedure') statusClass = 'procedure';
+                    
+                    calendarHTML += `<div class="calendar-event ${statusClass}" title="${appointment.patients.name} - ${appointment.procedure}">
+                        ${appointment.time} - ${appointment.patients.name.split(' ')[0]}
+                    </div>`;
+                });
+                
+                calendarHTML += `</div>`;
+            }
+            
+            document.getElementById('calendar-grid').innerHTML = calendarHTML;
+        }
+        
+        function changeMonth(direction) {
+            currentMonth += direction;
+            
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            
+            renderCalendar();
+        }
+        
+        function goToToday() {
+            const today = new Date();
+            currentMonth = today.getMonth();
+            currentYear = today.getFullYear();
+            renderCalendar();
+        }
+        
+        // Funções de filtro
+        async function filterAppointments() {
+            const searchTerm = document.getElementById('search-appointments').value.toLowerCase();
+            const statusFilter = document.getElementById('filter-status').value;
+            const professionalFilter = document.getElementById('filter-professional').value;
+            
+            try {
+                let query = supabase
+                    .from('appointments')
+                    .select(`
+                        *,
+                        patients (name, phone),
+                        professionals (name)
+                    `)
+                    .order('date', { ascending: false })
+                    .order('time', { ascending: false });
+                
+                if (searchTerm) {
+                    query = query.or(`patients.name.ilike.%${searchTerm}%,professionals.name.ilike.%${searchTerm}%,procedure.ilike.%${searchTerm}%`);
+                }
+                
+                if (statusFilter) {
+                    query = query.eq('status', statusFilter);
+                }
+                
+                if (professionalFilter) {
+                    query = query.eq('professional_id', professionalFilter);
+                }
+                
+                const { data, error } = await query;
+                
+                if (error) {
+                    console.error('Erro ao filtrar agendamentos:', error);
+                    return;
+                }
+                
+                appointments = data || [];
+                renderAppointmentsTable();
+                
+            } catch (error) {
+                console.error('Erro ao filtrar agendamentos:', error);
+            }
+        }
+        
+        async function filterPatients() {
+            const searchTerm = document.getElementById('search-patients').value.toLowerCase();
+            
+            try {
+                let query = supabase
+                    .from('patients')
+                    .select('*')
+                    .order('name', { ascending: true });
+                
+                if (searchTerm) {
+                    query = query.or(`name.ilike.%${searchTerm}%,phone.ilike.%${searchTerm}%,email.ilike.%${searchTerm}%`);
+                }
+                
+                const { data, error } = await query;
+                
+                if (error) {
+                    console.error('Erro ao filtrar pacientes:', error);
+                    return;
+                }
+                
+                patients = data || [];
+                renderPatientsTable();
+                
+            } catch (error) {
+                console.error('Erro ao filtrar pacientes:', error);
+            }
+        }
+        
+        async function filterProfessionals() {
+            const searchTerm = document.getElementById('search-professionals').value.toLowerCase();
+            
+            try {
+                let query = supabase
+                    .from('professionals')
+                    .select('*')
+                    .order('name', { ascending: true });
+                
+                if (searchTerm) {
+                    query = query.or(`name.ilike.%${searchTerm}%,specialty.ilike.%${searchTerm}%`);
+                }
+                
+                const { data, error } = await query;
+                
+                if (error) {
+                    console.error('Erro ao filtrar profissionais:', error);
+                    return;
+                }
+                
+                professionals = data || [];
+                renderProfessionalsTable();
+                
+            } catch (error) {
+                console.error('Erro ao filtrar profissionais:', error);
+            }
+        }
+        
+        async function filterProcedures() {
+            const searchTerm = document.getElementById('search-procedures').value.toLowerCase();
+            const professionalFilter = document.getElementById('filter-procedure-professional').value;
+            
+            try {
+                let query = supabase
+                    .from('appointments')
+                    .select(`
+                        *,
+                        patients (name),
+                        professionals (name)
+                    `)
+                    .eq('status', 'procedure')
+                    .order('date', { ascending: false });
+                
+                if (searchTerm) {
+                    query = query.or(`patients.name.ilike.%${searchTerm}%,procedure.ilike.%${searchTerm}%`);
+                }
+                
+                if (professionalFilter) {
+                    query = query.eq('professional_id', professionalFilter);
+                }
+                
+                const { data, error } = await query;
+                
+                if (error) {
+                    console.error('Erro ao filtrar procedimentos:', error);
+                    return;
+                }
+                
+                procedures = data || [];
+                renderProceduresTable();
+                
+            } catch (error) {
+                console.error('Erro ao filtrar procedimentos:', error);
+            }
+        }
+        
+        // Funções de paginação
+        function changeAppointmentsPage(direction) {
+            if (direction === 'prev' && currentAppointmentsPage > 1) {
+                currentAppointmentsPage--;
+            } else if (direction === 'next') {
+                currentAppointmentsPage++;
+            }
+            
+            loadAppointments();
+        }
+        
+        function changePatientsPage(direction) {
+            if (direction === 'prev' && currentPatientsPage > 1) {
+                currentPatientsPage--;
+            } else if (direction === 'next') {
+                currentPatientsPage++;
+            }
+            
+            loadPatients();
+        }
+        
+        function changeProfessionalsPage(direction) {
+            if (direction === 'prev' && currentProfessionalsPage > 1) {
+                currentProfessionalsPage--;
+            } else if (direction === 'next') {
+                currentProfessionalsPage++;
+            }
+            
+            loadProfessionals();
+        }
+        
+        function changeProceduresPage(direction) {
+            if (direction === 'prev' && currentProceduresPage > 1) {
+                currentProceduresPage--;
+            } else if (direction === 'next') {
+                currentProceduresPage++;
+            }
+            
+            loadProcedures();
+        }
+        
+        // Inicializar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardData();
+            loadProfessionalsDropdown();
+            loadProfessionalsDropdown('filter-procedure-professional');
+        });
+    </script>
+</body>
+</html>

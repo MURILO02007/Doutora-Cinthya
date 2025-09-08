@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuidados Odontológicos </title>
+    <style>
+        :root {
+            --primary: #00a3a8;
+            --primary-dark: #008489;
+            --secondary: #f8f9fa;
+            --text: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --light-gray: #f5f7fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            color: var(--text);
+            line-height: 1.6;
+            background-color: var(--light-gray);
+        }
+        
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 15px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .logo-text h1 {
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo-text p {
+            color: var(--text-light);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover:after,
+        nav ul li a.active:after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .blog-header {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 80px;
+        }
+        
+        .blog-header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .blog-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .blog-header p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        .breadcrumb {
+            padding: 15px 0;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+        }
+        
+        .breadcrumb ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .breadcrumb li {
+            margin-right: 10px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .breadcrumb li:after {
+            content: '›';
+            margin-left: 10px;
+            color: var(--text-light);
+        }
+        
+        .breadcrumb li:last-child:after {
+            content: '';
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .blog-container {
+            display: flex;
+            gap: 40px;
+            padding: 60px 0;
+        }
+        
+        .main-content {
+            flex: 2;
+        }
+        
+        .sidebar {
+            flex: 1;
+        }
+        
+        .article {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            transition: var(--transition);
+        }
+        
+        .article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .article-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .article-content {
+            padding: 30px;
+        }
+        
+        .article-meta {
+            display: flex;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .article-meta span {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .article-content h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            color: var(--text-light);
+        }
+        
+        .article-content ul, 
+        .article-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            color: var(--text-light);
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover {
+            color: var(--primary-dark);
+        }
+        
+        .read-more i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+        
+        .sidebar-widget {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .widget-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
+            color: var(--primary);
+        }
+        
+        .categories-list li {
+            margin-bottom: 10px;
+        }
+        
+        .categories-list a {
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+        
+        .categories-list a:hover,
+        .categories-list a.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .categories-list span {
+            background-color: var(--secondary);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        
+        .categories-list a:hover span,
+        .categories-list a.active span {
+            background-color: rgba(255,255,255,0.2);
+            color: var(--white);
+        }
+        
+        .search-results {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .search-results h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+        
+        footer {
+            background-color: #222;
+            color: var(--white);
+            padding: 70px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            padding: 0 20px;
+        }
+        
+        .footer-column:first-child {
+            padding-left: 0;
+        }
+        
+        .footer-column:last-child {
+            padding-right: 0;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 25px;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column p {
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 15px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 992px) {
+            .blog-container {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-wrap: wrap;
+            }
+            
+            .footer-column {
+                flex: 0 0 50%;
+                margin-bottom: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-header {
+                height: 300px;
+                margin-top: 70px;
+            }
+            
+            .blog-header h1 {
+                font-size: 36px;
+            }
+            
+            .blog-header p {
+                font-size: 18px;
+            }
+            
+            .article-content h2 {
+                font-size: 24px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .footer-column {
+                flex: 0 0 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .blog-header {
+                height: 250px;
+            }
+            
+            .blog-header h1 {
+                font-size: 28px;
+            }
+            
+            .article-image {
+                height: 200px;
+            }
+            
+            .article-content {
+                padding: 20px;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+            }
+            
+            .article-meta span {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                  
+                    <div class="logo-text">
+                        <h1>Doutora Cinthya</h1>
+                        <p>Clinica Odontológica</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <section class="blog-header">
+        <div class="blog-header-content">
+            <h1>Cuidados Odontológicos</h1>
+            <p>Dicas e orientações para manter sua saúde bucal em dia</p>
+        </div>
+    </section>
+    
+    <div class="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li id="current-category">Higiene Bucal</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="blog-container">
+            <main class="main-content">
+                <div id="search-results" class="search-results" style="display: none;">
+                    <h3>Resultados da Busca</h3>
+                    <div id="search-results-content"></div>
+                </div>
+                
+                <div id="main-articles">
+                    <!-- Artigo de Higiene Bucal -->
+                    <article class="article" data-category="Higiene Bucal" id="higiene-bucal">
+                        <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Higiene bucal" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 15 de Junho, 2023</span>
+                                <span><i class="far fa-user"></i> Dr. Carlos Silva</span>
+                                <span><i class="far fa-eye"></i> 1.245 visualizações</span>
+                            </div>
+                            <h2>Guia Completo de Higiene Bucal: Como Cuidar Corretamente dos Seus Dentes</h2>
+                            <p>Manter uma boa higiene bucal é essencial para prevenir cáries, doenças gengivais e outros problemas dentários. Neste guia completo, vamos explorar as melhores práticas para cuidar da sua saúde bucal no dia a dia.</p>
+                            
+                            <h3>Escovação Correta</h3>
+                            <p>A escovação é a base da higiene bucal. Siga estas recomendações:</p>
+                            <ul>
+                                <li>Escove os dentes pelo menos 2 vezes ao dia, especialmente após as refeições</li>
+                                <li>Use uma escova de cerdas macias e creme dental com flúor</li>
+                                <li>Posicione a escova em um ângulo de 45 graus em relação à gengiva</li>
+                                <li>Faça movimentos suaves e curtos, cobrindo todas as superfícies dos dentes</li>
+                                <li>Não se esqueça de escovar a língua para remover bactérias</li>
+                            </ul>
+                            
+                            <h3>O Uso do Fio Dental</h3>
+                            <p>Muitas pessoas negligenciam o fio dental, mas ele é essencial para remover placa e resíduos onde a escova não alcança:</p>
+                            <ol>
+                                <li>Use cerca de 45 cm de fio dental, enrolando a maior parte nos dedos médios</li>
+                                <li>Segure o fio esticado entre os polegares e indicadores</li>
+                                <li>Deslize suavemente para cima e para baixo entre os dentes</li>
+                                <li>Curve o fio ao redor da base de cada dente, ultrapassando a linha da gengiva</li>
+                                <li>Use partes limpas do fio para cada espaço interdental</li>
+                            </ol>
+                            
+                            <blockquote>
+                                "A combinação de escovação adequada e uso regular do fio dental pode prevenir até 80% dos problemas dentários mais comuns." - Dra. Ana Oliveira, especialista em periodontia
+                            </blockquote>
+                            
+                            <h3>Alimentação e Saúde Bucal</h3>
+                            <p>O que você come afeta diretamente a saúde dos seus dentes:</p>
+                            <ul>
+                                <li><strong>Alimentos benéficos:</strong> frutas crocantes (maçã, pera), vegetais fibrosos (cenoura), laticínios (ricos em cálcio), água fluorada</li>
+                                <li><strong>Alimentos prejudiciais:</strong> açúcares refinados, refrigerantes, alimentos ácidos (limão, vinagre), álcool em excesso</li>
+                                <li>Mastigar alimentos fibrosos ajuda a limpar os dentes naturalmente</li>
+                                <li>Beber água após as refeições ajuda a lavar os resíduos alimentares</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Ortodontia -->
+                    <article class="article" data-category="Ortodontia" id="ortodontia">
+                        <img src="https://images.unsplash.com/photo-1588778061980-56d9f132d2a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Ortodontia" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 10 de Junho, 2023</span>
+                                <span><i class="far fa-user"></i> Dr. Marcos Andrade</span>
+                                <span><i class="far fa-eye"></i> 987 visualizações</span>
+                            </div>
+                            <h2>Tudo o que Você Precisa Saber Sobre Tratamento Ortodôntico</h2>
+                            <p>O tratamento ortodôntico vai muito além da estética, contribuindo significativamente para a saúde bucal e qualidade de vida. Conheça os principais aspectos desse importante procedimento odontológico.</p>
+                            
+                            <h3>Tipos de Aparelhos Ortodônticos</h3>
+                            <p>Existem diversas opções disponíveis no mercado:</p>
+                            <ul>
+                                <li><strong>Aparelho fixo metálico:</strong> O mais tradicional, eficaz e econômico</li>
+                                <li><strong>Aparelho fixo estético:</strong> Feito de porcelana ou safira, menos visível</li>
+                                <li><strong>Aparelho lingual:</strong> Colocado na parte interna dos dentes, totalmente invisível</li>
+                                <li><strong>Alinhadores transparentes:</strong> Práticos e removíveis, como Invisalign</li>
+                                <li><strong>Aparelhos funcional:</strong> Para correção de problemas ósseos em crianças</li>
+                            </ul>
+                            
+                            <h3>Cuidados com o Aparelho Ortodôntico</h3>
+                            <p>Manter o aparelho limpo e em boas condições é essencial:</p>
+                            <ol>
+                                <li>Escovação após todas as refeições com escova interdental</li>
+                                <li>Uso do passa fio para facilitar a limpeza entre os dentes</li>
+                                <li>Evitar alimentos duros, pegajosos ou muito açucarados</li>
+                                <li>Comparecer às manutenções periódicas conforme agendamento</li>
+                                <li>Usar protetor bucal em atividades esportivas</li>
+                            </ol>
+                            
+                            <h3>Duração do Tratamento</h3>
+                            <p>O tempo varia conforme a complexidade do caso:</p>
+                            <ul>
+                                <li>Casos simples: 12 a 18 meses</li>
+                                <li>Casos moderados: 18 a 30 meses</li>
+                                <li>Casos complexos: pode ultrapassar 36 meses</li>
+                                <li>Fase de contenção: uso do aparelho de contenção por tempo indeterminado</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Implantes Dentários -->
+                    <article class="article" data-category="Implantes Dentários" id="implantes-dentarios">
+                        <img src="https://images.unsplash.com/photo-1588778207280-a5245e5ff9b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Implantes Dentários" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 5 de Junho, 2023</span>
+                                <span><i class="far fa-user"></i> Dra. Fernanda Costa</span>
+                                <span><i class="far fa-eye"></i> 1.532 visualizações</span>
+                            </div>
+                            <h2>Implantes Dentários: Solução Definitiva para a Perda de Dentes</h2>
+                            <p>Os implantes dentários revolucionaram a odontologia, oferecendo uma solução fixa, durável e natural para a reposição de dentes perdidos. Entenda como funciona esse tratamento.</p>
+                            
+                            <h3>Vantagens dos Implantes</h3>
+                            <ul>
+                                <li>Restauram a função mastigatória quase que completamente</li>
+                                <li>Preservam a estrutura óssea da mandíbula e maxila</li>
+                                <li>Evitam a reabsorção óssea comum em próteses convencionais</li>
+                                <li>Não prejudicam os dentes vizinhos (como as próteses fixas)</li>
+                                <li>Proporcionam conforto e segurança ao paciente</li>
+                                <li>Durabilidade superior a 20 anos com cuidados adequados</li>
+                            </ul>
+                            
+                            <h3>Etapas do Tratamento</h3>
+                            <ol>
+                                <li><strong>Avaliação inicial:</strong> Exames clínicos e radiográficos</li>
+                                <li><strong>Planejamento:</strong> Definição da quantidade e posição dos implantes</li>
+                                <li><strong>Cirurgia:</strong> Instalação do pino de titânio no osso</li>
+                                <li><strong>Osteointegração:</strong> Período de cicatrização (3 a 6 meses)</li>
+                                <li><strong>Confecção da prótese:</strong> Coroas ou próteses sobre os implantes</li>
+                                <li><strong>Manutenção:</strong> Acompanhamento periódico</li>
+                            </ol>
+                            
+                            <h3>Cuidados Pós-Implante</h3>
+                            <p>Para garantir o sucesso do tratamiento:</p>
+                            <ul>
+                                <li>Higiene bucal rigorosa com escovas especiais</li>
+                                <li>Uso diário de fio dental superfloss ou passa fio</li>
+                                <li>Visitas regulares ao dentista para manutenção</li>
+                                <li>Evitar fumar e consumir álcool em excesso</li>
+                                <li>Controlar doenças sistêmicas como diabetes</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Clareamento -->
+                    <article class="article" data-category="Clareamento" id="clareamento">
+                        <img src="https://images.unsplash.com/photo-1542733384-a5e2a5e8c0d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Clareamento Dental" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 28 de Maio, 2023</span>
+                                <span><i class="far fa-user"></i> Dra. Patrícia Lima</span>
+                                <span><i class="far fa-eye"></i> 2.145 visualizações</span>
+                            </div>
+                            <h2>Clareamento Dental: Métodos Seguros para um Sorriso Brilhante</h2>
+                            <p>Um sorriso mais branco pode aumentar a autoestima e melhorar a aparência. Conheça os diferentes métodos de clareamento dental e como alcançar resultados satisfatórios com segurança.</p>
+                            
+                            <h3>Tipos de Clareamento</h3>
+                            <p>Principais técnicas disponíveis:</p>
+                            <ul>
+                                <li><strong>Clareamento em consultório:</strong> Realizado pelo dentista com luzes ativadoras, resultados imediatos</li>
+                                <li><strong>Clareamento caseiro supervisionado:</strong> Moldeiras personalizadas com gel clareador</li>
+                                <li><strong>Clareamento de canal:</strong> Para dentes que escureceram após tratamento de canal</li>
+                                <li><strong>Clareamento interno:</strong> Quando há necessidade de clarear o dente por dentro</li>
+                                <li><strong>Produtos de venda livre:</strong> Pastas e enxaguantes com efeito clareador (menos eficazes)</li>
+                            </ul>
+                            
+                            <h3>Cuidados e Precauções</h3>
+                            <p>Para evitar problemas:</p>
+                            <ol>
+                                <li>Sempre realizar sob supervisão odontológica</li>
+                                <li>Fazer avaliação prévia da saúde bucal</li>
+                                <li>Proteger gengivas e mucosa durante o procedimento</li>
+                                <li>Evitar alimentos pigmentados nas primeiras 48 horas</li>
+                                <li>Não exceder o tempo de aplicação recomendado</li>
+                                <li>Interromper em caso de sensibilidade excessiva</li>
+                            </ol>
+                            
+                            <h3>Manutenção dos Resultados</h3>
+                            <p>Para prolongar o efeito do clareamento:</p>
+                            <ul>
+                                <li>Higiene bucal impecável</li>
+                                <li>Evitar café, chá preto, refrigerantes e vinho tinto</li>
+                                <li>Não fumar</li>
+                                <li>Retoques periódicos conforme orientação</li>
+                                <li>Usar pasta dental branqueadora ocasionalmente</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Odontopediatria -->
+                    <article class="article" data-category="Odontopediatria" id="odontopediatria">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Odontopediatria" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 20 de Maio, 2023</span>
+                                <span><i class="far fa-user"></i> Dra. Juliana Martins</span>
+                                <span><i class="far fa-eye"></i> 876 visualizações</span>
+                            </div>
+                            <h2>Cuidados com a Saúde Bucal das Crianças: Guia para Pais</h2>
+                            <p>A saúde bucal infantil é fundamental para o desenvolvimento da criança e para a formação de dentes permanentes saudáveis. Saiba como cuidar da boca do seu filho em cada fase.</p>
+                            
+                            <h3>Cronologia de Cuidados</h3>
+                            <ul>
+                                <li><strong>0-2 anos:</strong> Limpar gengivas com gaze úmida; primeira visita ao dentista com o nascimento do primeiro dente</li>
+                                <li><strong>2-4 anos:</strong> Escovação supervisionada com pasta infantil; introdução do fio dental</li>
+                                <li><strong>5-7 anos:</strong> Início da troca de dentes; atenção à mordida e espaços</li>
+                                <li><strong>8-12 anos:</strong> Fase de dentição mista; possíveis tratamentos ortodônticos preventivos</li>
+                                <li><strong>13+ anos:</strong> Dentição permanente completa; reforço na educação para higiene bucal</li>
+                            </ul>
+                            
+                            <h3>Prevenção de Problemas Comuns</h3>
+                            <p>Como evitar as principais doenças bucais em crianças:</p>
+                            <ol>
+                                <li>Cárie: controle da dieta e aplicação de flúor</li>
+                                <li>Traumas: uso de protetor bucal em esportes</li>
+                                <li>Má oclusão: acompanhamento do desenvolvimento</li>
+                                <li>Gengivite: ensinar técnica de escovação correta</li>
+                                <li>Hábitos nocivos: chupeta, sucção digital, respiração bucal</li>
+                            </ol>
+                            
+                            <h3>Dicas para Tornar a Escovação Divertida</h3>
+                            <ul>
+                                <li>Escovas coloridas e com personagens favoritos</li>
+                                <li>Canções ou temporizadores para marcar o tempo</li>
+                                <li>Cartões de recompensa por escovações completas</li>
+                                <li>Envolver a criança na escolha dos produtos</li>
+                                <li>Dar o exemplo escovando os dentes junto</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Prevenção -->
+                    <article class="article" data-category="Prevenção" id="prevencao">
+                        <img src="https://images.unsplash.com/photo-1588778062333-0c4ba0a30409?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Prevenção Odontológica" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 15 de Maio, 2023</span>
+                                <span><i class="far fa-user"></i> Dr. Roberto Almeida</span>
+                                <span><i class="far fa-eye"></i> 1.098 visualizações</span>
+                            </div>
+                            <h2>Prevenção Odontológica: Como Evitar Problemas Antes que Apareçam</h2>
+                            <p>A prevenção é a forma mais eficaz e econômica de manter a saúde bucal. Conheça as medidas que podem evitar a maioria dos problemas dentários.</p>
+                            
+                            <h3>Medidas Preventivas Essenciais</h3>
+                            <ul>
+                                <li><strong>Check-up regular:</strong> Visitas ao dentista a cada 6 meses</li>
+                                <li><strong>Limpeza profissional:</strong> Remoção de tártaro e placa bacteriana</li>
+                                <li><strong>Aplicação de flúor:</strong> Fortalecimento do esmalte dentário</li>
+                                <li><strong>Selantes:</strong> Proteção das fissuras dos dentes posteriores</li>
+                                <li><strong>Orientação nutricional:</strong> Dieta balanceada para saúde bucal</li>
+                                <li><strong>Educação em higiene:</strong> Técnicas corretas de escovação</li>
+                            </ul>
+                            
+                            <h3>Sinais de Alerta</h3>
+                            <p>Sintomas que indicam necessidade de avaliação profissional:</p>
+                            <ol>
+                                <li>Sangramento gengival ao escovar ou passar fio dental</li>
+                                <li>Mobilidade dentária ou alterações na posição dos dentes</li>
+                                <li>Sensibilidade a temperaturas quentes ou frias</li>
+                                <li>Mau hálito persistente</li>
+                                <li>Dor ou inchaço na face sem causa aparente</li>
+                                <li>Feridas que não cicatrizam em duas semanas</li>
+                            </ol>
+                            
+                            <h3>Benefícios da Prevenção</h3>
+                            <p>Investir em prevenção traz diversas vantagens:</p>
+                            <ul>
+                                <li>Economia financeira a longo prazo</li>
+                                <li>Preservação da estrutura dental natural</li>
+                                <li>Evita procedimentos invasivos e dolorosos</li>
+                                <li>Melhora da saúde geral (muitas doenças começam na boca)</li>
+                                <li>Manutenção da função mastigatória e digestiva</li>
+                                <li>Autoestima elevada com um sorriso saudável</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- NOVOS ARTIGOS ADICIONADOS -->
+                    
+                    <!-- Artigo de Clínico Geral -->
+                    <article class="article" data-category="Clínico Geral" id="clinico-geral">
+                        <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Clínico Geral" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 12 de Julho, 2023</span>
+                                <span><i class="far fa-user"></i> Dra. Maria Santos</span>
+                                <span><i class="far fa-eye"></i> 1.543 visualizações</span>
+                            </div>
+                            <h2>Odontologia Clínica Geral: O Primeiro Passo para a Saúde Bucal</h2>
+                            <p>A odontologia clínica geral é a base de todos os tratamentos odontológicos, responsável pelo diagnóstico, prevenção e tratamento de problemas bucais. Conheça a importância do dentista clínico geral.</p>
+                            
+                            <h3>Atuação do Dentista Clínico Geral</h3>
+                            <p>O profissional de clínica geral atua em diversas frentes:</p>
+                            <ul>
+                                <li>Diagnóstico e planejamento de tratamentos odontológicos</li>
+                                <li>Prevenção de doenças bucais através de orientações e aplicações</li>
+                                <li>Restaurações dentárias para tratar cáries e fraturas</li>
+                                <li>Limpezas profissionais (profilaxia) para remoção de tártaro</li>
+                                <li>Tratamento de emergências odontológicas como dores e traumas</li>
+                                <li>Encaminhamento para especialistas quando necessário</li>
+                            </ul>
+                            
+                            <h3>Procedimentos Realizados</h3>
+                            <p>Entre os principais procedimentos realizados estão:</p>
+                            <ol>
+                                <li>Exame clínico completo e radiografias</li>
+                                <li>Aplicação de flúor para fortalecimento dental</li>
+                                <li>Colocação de selantes para prevenção de cáries</li>
+                                <li>Restaurações em resina composta ou amálgama</li>
+                                <li>Tratamento de sensibilidade dentária</li>
+                                <li>Clareamento dental supervisionado</li>
+                            </ol>
+                            
+                            <h3>Importância das Consultas Regulares</h3>
+                            <p>Visitar regularmente o dentista clínico geral é essencial porque:</p>
+                            <ul>
+                                <li>Permite diagnóstico precoce de problemas bucais</li>
+                                <li>Previne o agravamento de condições simples</li>
+                                <li>Economiza recursos com tratamentos complexos futuros</li>
+                                <li>Mantém a saúde bucal em dia e previne dores</li>
+                                <li>Proporciona orientação personalizada para cada paciente</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Endodontia -->
+                    <article class="article" data-category="Endodontia" id="endodontia">
+                        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Endodontia" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 8 de Julho, 2023</span>
+                                <span><i class="far fa-user"></i> Dr. Ricardo Oliveira</span>
+                                <span><i class="far fa-eye"></i> 1.210 visualizações</span>
+                            </div>
+                            <h2>Endodontia: Entenda o Tratamento de Canal e Seus Benefícios</h2>
+                            <p>A endodontia é a especialidade odontológica responsável pelo tratamento da polpa dental, popularmente conhecido como "tratamento de canal". Saiba quando é necessário e como é realizado este procedimento.</p>
+                            
+                            <h3>Quando o Tratamento de Canal é Necessário</h3>
+                            <p>O procedimento é indicado nas seguintes situações:</p>
+                            <ul>
+                                <li>Cárie profunda que atingiu a polpa do dente</li>
+                                <li>Trauma dental que causou danos à polpa</li>
+                                <li>Fratura dental que expôs o nervo</li>
+                                <li>Necessidade de procedimento protético extenso</li>
+                                <li>Infecção ou necrose pulpar</li>
+                                <li>Abscesso ou fístula na região apical do dente</li>
+                            </ul>
+                            
+                            <h3>Etapas do Tratamento de Canal</h3>
+                            <p>O procedimento é realizado em várias etapas:</p>
+                            <ol>
+                                <li>Anestesia local para garantir conforto durante o tratamento</li>
+                                <li>Acesso à câmara pulpar através da coroa dental</li>
+                                <li>Remoção do tecido pulpar infectado ou necrosado</li>
+                                <li>Instrumentação e modelagem dos canais radiculares</li>
+                                <li>Desinfecção completa do sistema de canais</li>
+                                <li>Obturação dos canais com material específico</li>
+                                <li>Restauração ou coroa para proteger o dente tratado</li>
+                            </ol>
+                            
+                            <h3>Mitos e Verdades sobre o Tratamento de Canal</h3>
+                            <p>Desvendamos alguns equívocos comuns:</p>
+                            <ul>
+                                <li><strong>Mito:</strong> O tratamento de canal dói muito</li>
+                                <li><strong>Verdade:</strong> Com anestesia moderna, o procedimento é confortável</li>
+                                <li><strong>Mito:</strong> É melhor extrair o dente do que fazer canal</li>
+                                <li><strong>Verdade:</strong> Manter o dente natural é sempre a melhor opção</li>
+                                <li><strong>Mito:</strong> Dentes com canal escurecem com o tempo</li>
+                                <li><strong>Verdade:</strong> Técnicas modernas previnem o escurecimento</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Implantodontia -->
+                    <article class="article" data-category="Implantodontia" id="implantodontia">
+                        <img src="https://images.unsplash.com/photo-1588778207280-a5245e5ff9b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Implantodontia" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 3 de Julho, 2023</span>
+                                <span><i class="far fa-user"></i> Dr. André Costa</span>
+                                <span><i class="far fa-eye"></i> 2.345 visualizações</span>
+                            </div>
+                            <h2>Implantodontia: A Revolução na Reposição de Dentes Perdidos</h2>
+                            <p>A implantodontia é a especialidade que se dedica à colocação de implantes dentários, oferecendo a melhor solução para repor dentes perdidos. Conheça as vantagens e o que esperar deste tratamento.</p>
+                            
+                            <h3>Vantagens dos Implantes Dentários</h3>
+                            <p>Os implantes oferecem benefícios significativos:</p>
+                            <ul>
+                                <li>Restauram a função mastigatória quase por completo</li>
+                                <li>Preservam o osso alveolar, prevenindo a reabsorção</li>
+                                <li>Proporcionam conforto e segurança superiores às próteses removíveis</li>
+                                <li>Não necessitam desgaste de dentes adjacentes</li>
+                                <li>Resultados estéticos excepcionais</li>
+                                <li>Durabilidade superior a 20 anos com cuidados adequados</li>
+                            </ul>
+                            
+                            <h3>Tipos de Implantes e Próteses</h3>
+                            <p>Existem diversas opções disponíveis:</p>
+                            <ol>
+                                <li><strong>Implantes unitários:</strong> Para reposição de dentes individuais</li>
+                                <li><strong>Próteses protocolo:</strong> Para reabilitação completa de arcadas</li>
+                                <li><strong>Próteses overdenture:</strong> Retidas por implantes mas removíveis pelo paciente</li>
+                                <li><strong>Implantes curtos:</strong> Para casos com pouco osso disponível</li>
+                                <li><strong>Implantes zigomáticos:</strong> Para casos extremos de falta de osso</li>
+                            </ol>
+                            
+                            <h3>Candidatos Ideais para Implantes</h3>
+                            <p>O sucesso do tratamento depende de alguns fatores:</p>
+                            <ul>
+                                <li>Boa saúde geral e bucal</li>
+                                <li>Quantidade e qualidade óssea adequadas</li>
+                                <li>Comprometimento com a higiene bucal</li>
+                                <li>Não fumantes têm maior taxa de sucesso</li>
+                                <li>Pacientes com doenças controladas (diabetes, hipertensão)</li>
+                                <li>Pacientes realistas quanto aos resultados e tempo de tratamento</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Próteses -->
+                    <article class="article" data-category="Próteses" id="proteses">
+                        <img src="https://images.unsplash.com/photo-1588778062333-0c4ba0a30409?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Próteses Dentárias" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 28 de Junho, 2023</span>
+                                <span><i class="far fa-user"></i> Dra. Camila Rodrigues</span>
+                                <span><i class="far fa-eye"></i> 1.876 visualizações</span>
+                            </div>
+                            <h2>Próteses Dentárias: Restaurando Função e Estética do Sorriso</h2>
+                            <p>As próteses dentárias são dispositivos que substituem dentes perdidos, restaurando a função mastigatória, a fonética e a estética. Conheça os diferentes tipos e indicações.</p>
+                            
+                            <h3>Tipos de Próteses Dentárias</h3>
+                            <p>Existem diversas opções para diferentes necessidades:</p>
+                            <ul>
+                                <li><strong>Próteses fixas:</strong> Coroas e pontes cimentadas em dentes ou implantes</li>
+                                <li><strong>Próteses removíveis:</strong> Esqueléticas ou parciais removíveis</li>
+                                <li><strong>Próteses totais:</strong> Dentaduras para pacientes desdentados totais</li>
+                                <li><strong>Próteses sobre implantes:</strong> Protocolo ou overdenture</li>
+                                <li><strong>Próteses provisórias:</strong> Protegem dentes durante tratamentos definitivos</li>
+                            </ul>
+                            
+                            <h3>Materiais Utilizados</h3>
+                            <p>As próteses podem ser confeccionadas em diversos materiais:</p>
+                            <ol>
+                                <li><strong>Resina acrílica:</strong> Para próteses totais e provisórias</li>
+                                <li><strong>Porcelana:</strong> Excelente estética mas maior fragilidade</li>
+                                <li><strong>Zircônia:</strong> Alta resistência e ótima estética</li>
+                                <li><strong>Metalocerâmica:</strong> Combina metal e porcelana, muito resistente</li>
+                                <li><strong>Dissilicato de lítio:</strong> Alta resistência e translucidez</li>
+                                <li><strong>Acrílico termopolimerizável:</strong> Para próteses esqueléticas</li>
+                            </ol>
+                            
+                            <h3>Cuidados com Próteses Dentárias</h3>
+                            <p>Para maior durabilidade e saúde bucal:</p>
+                            <ul>
+                                <li>Higienização diária rigorosa</li>
+                                <li>Remoção de próteses removíveis para dormir</li>
+                                <li>Limpeza específica com produtos adequados</li>
+                                <li>Visitas regulares ao dentista para ajustes</li>
+                                <li>Evitar alimentos muito duros ou pegajosos</li>
+                                <li>Manutenção periódica conforme orientação profissional</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Harmonização Orofacial -->
+                    <article class="article" data-category="Harmonização Orofacial" id="harmonizacao-orofacial">
+                        <img src="https://images.unsplash.com/photo-1594826731124-9d0897969e6a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Harmonização Orofacial" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 22 de Junho, 2023</span>
+                                <span><i class="far fa-user"></i> Dra. Vanessa Lima</span>
+                                <span><i class="far fa-eye"></i> 3.210 visualizações</span>
+                            </div>
+                            <h2>Harmonização Orofacial: Equilíbrio entre Saúde e Estética Facial</h2>
+                            <p>A harmonização orofacial une odontologia e estética para promover equilíbrio facial através de procedimentos minimamente invasivos. Descubra como é possível realçar a beleza natural do rosto.</p>
+                            
+                            <h3>Procedimentos Realizados</h3>
+                            <p>A harmonização orofacial inclui diversos tratamentos:</p>
+                            <ul>
+                                <li><strong>Toxina botulínica:</strong> Para suavizar linhas de expressão e harmonizar sorriso</li>
+                                <li><strong>Preenchimento facial:</strong> Para restaurar volume e contornar lábios</li>
+                                <li><strong>Lipoenzima:</strong> Para redução de papada e gordura localizada</li>
+                                <li><strong>Bichectomia:</strong> Redução das bolas de Bichat para afinar o rosto</li>
+                                <li><strong>Microagulhamento:</strong> Para rejuvenescimento facial</li>
+                                <li><strong>Botox:</strong> Para controle de bruxismo e dores na ATM</li>
+                            </ul>
+                            
+                            <h3>Benefícios da Harmonização Orofacial</h3>
+                            <p>Os resultados vão além da estética:</p>
+                            <ol>
+                                <li>Melhora da função mastigatória e da oclusão</li>
+                                <li>Alívio de dores na ATM e musculatura facial</li>
+                                <li>Correção de assimetrias faciais</li>
+                                <li>Rejuvenescimento facial não cirúrgico</li>
+                                <li>Harmonização entre dentes, lábios e estrutura facial</li>
+                                <li>Aumento da autoestima e confiança</li>
+                            </ol>
+                            
+                            <h3>Cuidados Pós-Procedimento</h3>
+                            <p>Para otimizar resultados e evitar complicações:</p>
+                            <ul>
+                                <li>Evitar manipular a região tratada nas primeiras horas</li>
+                                <li>Não deitar nas primeiras 4 horas após preenchimento</li>
+                                <li>Evitar exercícios físicos intensos no primeiro dia</li>
+                                <li>Não expor ao sol ou calor intenso nas primeiras 48 horas</li>
+                                <li>Seguir todas as recomendações do profissional</li>
+                                <li>Retornar para avaliação e possíveis retoques</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Periodontia -->
+                    <article class="article" data-category="Periodontia" id="periodontia">
+                        <img src="https://images.unsplash.com/photo-1588778061980-56d9f132d2a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Periodontia" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 18 de Junho, 2023</span>
+                                <span><i class="far fa-user"></i> Dr. Fábio Mendes</span>
+                                <span><i class="far fa-eye"></i> 1.654 visualizações</span>
+                            </div>
+                            <h2>Periodontia: Cuidando da Saúde das Gengivas e Estruturas de Suporte</h2>
+                            <p>A periodontia é a especialidade odontológica que previne e trata as doenças que afetam os tecidos de suporte dos dentes. Saiba como manter suas gengivas saudáveis.</p>
+                            
+                            <h3>Doenças Periodontais Mais Comuns</h3>
+                            <p>As principais condições tratadas pela periodontia:</p>
+                            <ul>
+                                <li><strong>Gengivite:</strong> Inflamação superficial da gengiva, reversível com tratamento</li>
+                                <li><strong>Periodontite:</strong> Inflamação profunda que afeta osso de suporte</li>
+                                <li><strong>Periodontite avançada:</strong> Perda óssea significativa com mobilidade dental</li>
+                                <li><strong>Gengivite ulcerativa necrosante:</strong> Infecção aguda e dolorosa</li>
+                                <li><strong>Retração gengival:</strong> Exposição da raiz dental por perda de gengiva</li>
+                            </ul>
+                            
+                            <h3>Sinais de Alerta</h3>
+                            <p>Fique atento aos sintomas de problemas periodontais:</p>
+                            <ol>
+                                <li>Sangramento gengival ao escovar ou passar fio dental</li>
+                                <li>Gengivas vermelhas, inchadas ou doloridas</li>
+                                <li>Mau hálito persistente</li>
+                                <li>Retração gengival com sensibilidade</li>
+                                <li>Mobilidade ou mudança de posição dos dentes</li>
+                                <li>Presença de pus entre a gengiva e o dente</li>
+                            </ol>
+                            
+                            <h3>Tratamentos Periodontais</h3>
+                            <p>Conheça os principais procedimentos:</p>
+                            <ul>
+                                <li><strong>Profilaxia:</strong> Limpeza profissional para remoção de placa e tártaro</li>
+                                <li><strong>Raspagem e alisamento radicular:</strong> Limpeza profunda das raízes dentárias</li>
+                                <li><strong>Cirurgia periodontal:</strong> Para casos avançados de periodontite</li>
+                                <li><strong>Enxertos gengivais:</strong> Para cobrir raízes expostas</li>
+                                <li><strong>Enxertos ósseos:</strong> Para reconstruir osso perdido</li>
+                                <li><strong>Terapia de manutenção:</strong> Acompanhamento periódico para controle</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Facetas de Resina -->
+                    <article class="article" data-category="Facetas de Resina" id="facetas-resina">
+                        <img src="https://images.unsplash.com/photo-1542733384-a5e2a5e8c0d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Facetas de Resina" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 14 de Junho, 2023</span>
+                                <span><i class="far fa-user"></i> Dra. Carolina Alves</span>
+                                <span><i class="far fa-eye"></i> 2.098 visualizações</span>
+                            </div>
+                            <h2>Facetas de Resina: Transformando Sorrisos de Forma Conservadora</h2>
+                            <p>As facetas de resina são uma opção acessível e conservadora para melhorar a estética do sorriso. Conheça as vantagens, indicações e cuidados deste procedimento.</p>
+                            
+                            <h3>O que são Facetas de Resina?</h3>
+                            <p>As facetas de resina são camadas finas de material composto aplicadas diretamente sobre os dentes para:</p>
+                            <ul>
+                                <li>Corrigir formato, tamanho e cor dos dentes</li>
+                                <li>Fechar espaços entre os dentes (diastemas)</li>
+                                <li>Restaurar dentes com desgaste ou pequenas fraturas</li>
+                                <li>Melhorar a harmonia do sorriso de forma conservadora</li>
+                                <li>Proteger superfícies dentárias desgastadas</li>
+                            </ul>
+                            
+                            <h3>Vantagens das Facetas de Resina</h3>
+                            <p>Principais benefícios em relação a outros tratamentos:</p>
+                            <ol>
+                                <li>Procedimento conservador com mínimo desgaste dental</li>
+                                <li>Realizado em apenas uma sessão na maioria dos casos</li>
+                                <li>Custo mais acessível que facetas de porcelana</li>
+                                <li>Possibilidade de reparo fácil em caso de fratura</li>
+                                <li>Resultados imediatos e naturais</li>
+                                <li>Não necessita de laboratório de prótese</li>
+                            </ol>
+                            
+                            <h3>Cuidados e Manutenção</h3>
+                            <p>Para prolongar a durabilidade das facetas de resina:</p>
+                            <ul>
+                                <li>Evitar alimentos muito duros ou pigmentados</li>
+                                <li>Não roer unhas ou morder objetos</li>
+                                <li>Manter higiene bucal rigorosa</li>
+                                <li>Usar fio dental diariamente</li>
+                                <li>Evitar cigarro e alimentos com corantes</li>
+                                <li>Realizar polimentos periódicos conforme orientação</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo de Lentes de Contato Cerâmica -->
+                    <article class="article" data-category="Lentes de Contato Cerâmica" id="lentes-contato-ceramica">
+                        <img src="https://images.unsplash.com/photo-1588778062333-0c4ba0a30409?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lentes de Contato Cerâmica" class="article-image">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="far fa-calendar-alt"></i> 10 de Junho, 2023</span>
+                                <span><i class="far fa-user"></i> Dr. Thiago Nunes</span>
+                                <span><i class="far fa-eye"></i> 2.765 visualizações</span>
+                            </div>
+                            <h2>Lentes de Contato Dental: O Máximo em Estética e Naturalidade</h2>
+                            <p>As lentes de contato dental são facetas ultrafinas de porcelana que transformam sorrisos com resultados impressionantes. Descubra se você é candidato a este procedimento.</p>
+                            
+                            <h3>O que são Lentes de Contato?</h3>
+                            <p>Diferenças entre lentes de contato e facetas convencionais:</p>
+                            <ul>
+                                <li>Espessura ultrafina (0,2 a 0,3 mm)</li>
+                                <li>Preparação dental mínima ou inexistente</li>
+                                <li>Altamente conservadoras</li>
+                                <li>Excelente translucidez e naturalidade</li>
+                                <li>Resistência superior à manchas e desgaste</li>
+                                <li>Resultados previsíveis e duradouros</li>
+                            </ul>
+                            
+                            <h3>Processo de Confecção e Aplicação</h3>
+                            <p>Etapas do tratamento com lentes de contato:</p>
+                            <ol>
+                                <li>Planejamento digital e mock-up (prova estética)</li>
+                                <li>Miníma preparação dental quando necessária</li>
+                                <li>Moldagem ou digitalização dos dentes preparados</li>
+                                <li>Confecção das lentes em laboratório especializado</li>
+                                <li>Teste de adaptação e aprovação pelo paciente</li>
+                                <li>Cimentação com adesivos especiais de alta resistência</li>
+                                <li>Ajustes finais e polimento</li>
+                            </ol>
+                            
+                            <h3>Vantagens das Lentes de Contato</h3>
+                            <p>Por que escolher este tratamento:</p>
+                            <ul>
+                                <li>Máxima conservação da estrutura dental natural</li>
+                                <li>Resultados extremamente naturais e estéticos</li>
+                                <li>Alta resistência à manchas e desgaste</li>
+                                <li>Biocompatibilidade excelente com os tecidos gengivais</li>
+                                <li>Durabilidade superior (15+ anos com cuidados)</li>
+                                <li>Facilidade de higienização e manutenção</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Buscar no Blog</h3>
+                    <form id="search-form">
+                        <input type="text" id="search-input" placeholder="Digite sua busca..." style="width:100%; padding:12px; border-radius:5px; border:1px solid #ddd;">
+                        <button type="submit" style="width:100%; padding:12px; background-color:#00a3a8; color:white; border:none; border-radius:5px; margin-top:10px; cursor:pointer;">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Categorias</h3>
+                    <ul class="categories-list">
+                        <li><a href="#" class="category-filter" data-category="Higiene Bucal">Higiene Bucal <span>12</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Ortodontia">Ortodontia <span>8</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Implantes Dentários">Implantes Dentários <span>5</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Clareamento">Clareamento <span>7</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Odontopediatria">Odontopediatria <span>4</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Prevenção">Prevenção <span>15</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Clínico Geral">Clínico Geral <span>10</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Endodontia">Endodontia <span>6</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Implantodontia">Implantodontia <span>7</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Próteses">Próteses <span>5</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Harmonização Orofacial">Harmonização Orofacial <span>4</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Periodontia">Periodontia <span>5</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Facetas de Resina">Facetas de Resina <span>3</span></a></li>
+                        <li><a href="#" class="category-filter" data-category="Lentes de Contato Cerâmica">Lentes de Contato Cerâmica <span>4</span></a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sorriso Perfeito</h3>
+                    <p>Odontologia de excelência com tecnologia avançada e atendimento humanizado para toda a família.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#servicos">Serviços</a></li>
+                        <li><a href="#sobre">Sobre Nós</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Serviços</h3>
+                    <ul>
+                        <li><a href="#clinico-geral">Clínico Geral</a></li>
+                        <li><a href="#endodontia">Endodontia</a></li>
+                        <li><a href="#implantodontia">Implantodontia</a></li>
+                        <li><a href="#proteses">Próteses</a></li>
+                        <li><a href="#ortodontia">Ortodontia</a></li>
+                        <li><a href="#harmonizacao-orofacial">Harmonização Orofacial</a></li>
+                        <li><a href="#periodontia">Periodontia</a></li>
+                        <li><a href="#facetas-resina">Facetas de Resina</a></li>
+                        <li><a href="#lentes-contato-ceramica">Lentes de Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Horário de Atendimento</h3>
+                    <p>Segunda a Sexta: 8h às 19h</p>
+                    <p>Sábado: 8h às 13h</p>
+                    <p>Urgências: 24h</p>
+                    <h3 style="margin-top:20px;">Telefone</h3>
+                    <p>(11) 1234-5678</p>
+                    <p>(11) 98765-4321</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Sorriso Perfeito - Odontologia Moderna. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', function() {
+            if(window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Active link highlight
+        const sections = document.querySelectorAll('section');
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if(pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('nav ul li a').forEach(a => {
+                a.classList.remove('active');
+                if(a.getAttribute('href') === '#' + current || 
+                   (a.getAttribute('href') === 'blog.html' && current === '')) {
+                    a.classList.add('active');
+                }
+            });
+        });
+        
+        // Category filtering
+        const categoryFilters = document.querySelectorAll('.category-filter');
+        const articles = document.querySelectorAll('.article');
+        const currentCategory = document.getElementById('current-category');
+        
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active category in filter list
+                categoryFilters.forEach(f => f.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                currentCategory.textContent = category;
+                
+                // Filter articles
+                articles.forEach(article => {
+                    if(article.getAttribute('data-category') === category || category === 'all') {
+                        article.style.display = 'block';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+                
+                // Hide search results if showing
+                document.getElementById('search-results').style.display = 'none';
+                document.getElementById('main-articles').style.display = 'block';
+                
+                // Scroll to top
+                window.scrollTo({
+                    top: document.querySelector('.breadcrumb').offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Search functionality
+        const searchForm = document.getElementById('search-form');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        const searchResultsContent = document.getElementById('search-results-content');
+        const mainArticles = document.getElementById('main-articles');
+        
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            
+            if(searchTerm === '') {
+                alert('Por favor, digite um termo para buscar');
+                return;
+            }
+            
+            // Hide all articles
+            articles.forEach(article => {
+                article.style.display = 'none';
+            });
+            
+            // Find matching articles
+            let matches = [];
+            articles.forEach(article => {
+                const title = article.querySelector('h2').textContent.toLowerCase();
+                const content = article.textContent.toLowerCase();
+                
+                if(title.includes(searchTerm) || content.includes(searchTerm)) {
+                    matches.push(article);
+                }
+            });
+            
+            // Display results
+            if(matches.length > 0) {
+                searchResultsContent.innerHTML = '';
+                
+                matches.forEach(match => {
+                    const clone = match.cloneNode(true);
+                    searchResultsContent.appendChild(clone);
+                });
+                
+                mainArticles.style.display = 'none';
+                searchResults.style.display = 'block';
+                
+                // Update breadcrumb
+                currentCategory.textContent = 'Resultados da busca: ' + searchTerm;
+            } else {
+                searchResultsContent.innerHTML = '<div class="no-results"><p>Nenhum resultado encontrado para "' + searchTerm + '"</p></div>';
+                mainArticles.style.display = 'none';
+                searchResults.style.display = 'block';
+                
+                // Update breadcrumb
+                currentCategory.textContent = 'Nenhum resultado para: ' + searchTerm;
+            }
+            
+            // Scroll to results
+            window.scrollTo({
+                top: document.querySelector('.breadcrumb').offsetTop - 80,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Reset search when clicking on categories
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', function() {
+                searchInput.value = '';
+            });
+        });
+        
+        // Check URL parameters for category filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            
+            if (category) {
+                // Find and click the corresponding category filter
+                const targetFilter = Array.from(categoryFilters).find(filter => 
+                    filter.getAttribute('data-category') === category
+                );
+                
+                if (targetFilter) {
+                    targetFilter.click();
+                }
+            }
+            
+            const articleId = window.location.hash;
+            if (articleId) {
+                const targetArticle = document.querySelector(articleId);
+                if (targetArticle) {
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: targetArticle.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }, 500);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

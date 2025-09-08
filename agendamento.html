@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento - Clínica Médica</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        .radio-option input {
+            margin-right: 5px;
+        }
+        button {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #128C7E;
+        }
+        .whatsapp-icon {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        .required:after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agendamento de Consulta</h1>
+        
+        <form id="agendamentoForm">
+            <div class="form-group">
+                <label for="nome" class="required">Nome Completo</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="idade" class="required">Idade</label>
+                <input type="number" id="idade" name="idade" min="0" max="120" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="required">Sexo</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="sexo-f" name="sexo" value="Feminino" required>
+                        <label for="sexo-f">Feminino</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="sexo-m" name="sexo" value="Masculino">
+                        <label for="sexo-m">Masculino</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="sexo-o" name="sexo" value="Outro">
+                        <label for="sexo-o">Outro</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="data" class="required">Data Preferencial</label>
+                <input type="date" id="data" name="data" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="horario">Horário Preferencial</label>
+                <input type="time" id="horario" name="horario">
+            </div>
+            
+            <div class="form-group">
+                <label for="queixa" class="required">Queixa/Problema</label>
+                <textarea id="queixa" name="queixa" required></textarea>
+            </div>
+            
+            <button type="button" onclick="enviarWhatsApp()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon" width="20">
+                Enviar Agendamento
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function enviarWhatsApp() {
+            // Coletar dados do formulário
+            const nome = document.getElementById('nome').value;
+            const idade = document.getElementById('idade').value;
+            const sexo = document.querySelector('input[name="sexo"]:checked')?.value || "Não informado";
+            const data = document.getElementById('data').value;
+            const horario = document.getElementById('horario').value;
+            const queixa = document.getElementById('queixa').value;
+            
+            // Validar campos obrigatórios
+            if (!nome || !idade || !data || !queixa) {
+                alert("Por favor, preencha todos os campos obrigatórios (*)");
+                return;
+            }
+            
+            // Formatar mensagem
+            const mensagem = `*NOVO AGENDAMENTO*%0A%0A` +
+                             `*Nome:* ${nome}%0A` +
+                             `*Idade:* ${idade}%0A` +
+                             `*Sexo:* ${sexo}%0A` +
+                             `*Data preferencial:* ${formatarData(data)}%0A` +
+                             `*Horário preferencial:* ${horario || 'Não especificado'}%0A` +
+                             `*Queixa/Problema:*%0A${queixa}`;
+            
+            // Substitua pelo número da clínica no formato 5511999999999 (código país + DDD + número)
+            const numeroClinica = '71988245353';
+            
+            // Abrir WhatsApp com a mensagem
+            window.open(`https://wa.me/${numeroClinica}?text=${mensagem}`, '_blank');
+        }
+        
+        function formatarData(data) {
+            if (!data) return "Não especificada";
+            const [ano, mes, dia] = data.split('-');
+            return `${dia}/${mes}/${ano}`;
+        }
+    </script>
+</body>
+</html>
